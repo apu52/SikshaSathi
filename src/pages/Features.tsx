@@ -56,116 +56,166 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, description, ben
 );
 
 const Features: React.FC = () => {
-  const featuresData = [
-    {
-      icon: <FileCheck className="h-8 w-8" />,
-      title: 'Student Assignment Uploads',
-      description: 'Our flexible upload system supports a wide range of document formats, allowing students to submit their work easily.',
-      benefits: [
-        'Support for multiple file formats (PDF, DOCX, TXT, etc.)',
-        'Bulk upload capability for multiple assignments',
-        'Automatic file organization by class, subject, and deadline',
-        'Custom submission parameters set by educators'
-      ],
-      link: '/features/student-uploads'
-    },
-    {
-      icon: <AlertTriangle className="h-8 w-8" />,
-      title: 'AI-Powered Plagiarism Detection',
-      description: 'Our sophisticated algorithms compare submissions against both internal databases and external sources to ensure academic integrity.',
-      benefits: [
-        'Cross-comparison with previous student submissions',
-        'Integration with external academic databases',
-        'AI detection of artificially generated content',
-        'Detailed similarity reports with source identification'
-      ],
-      link: '/features/plagiarism-detection'
-    },
-    {
-      icon: <BarChart4 className="h-8 w-8" />,
-      title: 'Automatic Grading & Ranking',
-      description: 'Save hours of manual grading with our intelligent evaluation system that assigns scores based on customizable criteria.',
-      benefits: [
-        'Customizable grading rubrics and criteria',
-        'Automatic scoring based on predefined parameters',
-        'Comparative ranking against class performance',
-        'Visual representation of grade distribution'
-      ],
-      link: '/features/auto-grading'
-    },
-    {
-      icon: <Sliders className="h-8 w-8" />,
-      title: 'Teacher Customization',
-      description: 'Take full control of the assessment process with adjustable grading parameters and the ability to train our AI.',
-      benefits: [
-        'Adjustable grading parameters per assignment',
-        'AI training based on teacher feedback',
-        'Custom rubric creation and management',
-        'Personalized assessment workflows'
-      ],
-      link: '/features/teacher-customization'
-    },
-    {
-      icon: <MessageSquareText className="h-8 w-8" />,
-      title: 'AI-Generated Feedback',
-      description: 'Provide timely, constructive feedback to students with AI-powered comments that identify areas for improvement.',
-      benefits: [
-        'Instant feedback generation upon submission',
-        'Contextual comments based on submission content',
-        'Focus on improvement areas and strengths',
-        'Editable suggestions for teacher refinement'
-      ],
-      link: '/features/ai-feedback'
-    },
-    {
-      icon: <LineChart className="h-8 w-8" />,
-      title: 'Student Performance Reports',
-      description: 'Track academic progress over time with comprehensive analytics that highlight strengths and weaknesses.',
-      benefits: [
-        'Longitudinal performance tracking',
-        'Skill gap analysis and recommendations',
-        'Comparative metrics against learning objectives',
-        'Shareable reports for parent-teacher meetings'
-      ],
-      link: '/features/performance-reports'
-    },
-    {
-      icon: <Binary className="h-8 w-8" />,
-      title: 'Web3 Grade Storage',
-      description: 'Enterprise plan users benefit from blockchain-based record keeping for the ultimate in security and verification.',
-      benefits: [
-        'Immutable grade records on secure blockchain',
-        'Credential verification for third parties',
-        'Digital academic certificates',
-        'Enhanced security against record tampering'
-      ],
-      link: '/features/web3-storage'
-    },
-    {
-      icon: <Languages className="h-8 w-8" />,
-      title: 'Multi-Language Support',
-      description: 'Our platform supports diverse user groups across India with interfaces and tools available in multiple regional languages.',
-      benefits: [
-        'Support for major Indian languages',
-        'Language detection in uploaded documents',
-        'Translation tools for feedback',
-        'Localized user interfaces'
-      ],
-      link: '/features/language-support'
-    },
-    {
-      icon: <CreditCard className="h-8 w-8" />,
-      title: 'Flexible Subscription Plans',
-      description: 'Choose the right package for your institutional needs with our tiered subscription model, starting with a free trial.',
-      benefits: [
-        'Three-month free trial for all new users',
-        'Scalable plans from individual to institution-wide',
-        'Pay only for features you need',
-        'Special pricing for educational institutions'
-      ],
-      link: '/features/subscription-plans'
-    },
-  ];
+  const loggedindetails = JSON.parse(localStorage.getItem('loggedindetails') || '{}');
+var featuresData=[];
+if (loggedindetails.loggedin === 'true') {
+  if(loggedindetails.role === 'teacher'){
+    featuresData = [
+      {
+        icon: <FileCheck className="h-8 w-8" />,
+        title: 'Student Assignment Uploads',
+        description: 'Our flexible upload system supports a wide range of document formats, allowing students to submit their work easily.',
+        benefits: [
+          'Support for multiple file formats (PDF, DOCX, TXT, etc.)',
+          'Bulk upload capability for multiple assignments',
+          'Automatic file organization by class, subject, and deadline',
+          'Custom submission parameters set by educators'
+        ],
+        link: '/features/student-uploads'
+      },
+      {
+        icon: <AlertTriangle className="h-8 w-8" />,
+        title: 'AI-Powered Plagiarism Detection',
+        description: 'Our sophisticated algorithms compare submissions against both internal databases and external sources to ensure academic integrity.',
+        benefits: [
+          'Cross-comparison with previous student submissions',
+          'Integration with external academic databases',
+          'AI detection of artificially generated content',
+          'Detailed similarity reports with source identification'
+        ],
+        link: '/features/plagiarism-detection'
+      },
+      {
+        icon: <BarChart4 className="h-8 w-8" />,
+        title: 'Automatic Grading & Ranking',
+        description: 'Save hours of manual grading with our intelligent evaluation system that assigns scores based on customizable criteria.',
+        benefits: [
+          'Customizable grading rubrics and criteria',
+          'Automatic scoring based on predefined parameters',
+          'Comparative ranking against class performance',
+          'Visual representation of grade distribution'
+        ],
+        link: '/features/auto-grading'
+      },
+      {
+        icon: <Sliders className="h-8 w-8" />,
+        title: 'Teacher Customization',
+        description: 'Take full control of the assessment process with adjustable grading parameters and the ability to train our AI.',
+        benefits: [
+          'Adjustable grading parameters per assignment',
+          'AI training based on teacher feedback',
+          'Custom rubric creation and management',
+          'Personalized assessment workflows'
+        ],
+        link: '/features/teacher-customization'
+      },
+      {
+        icon: <MessageSquareText className="h-8 w-8" />,
+        title: 'AI-Generated Feedback',
+        description: 'Provide timely, constructive feedback to students with AI-powered comments that identify areas for improvement.',
+        benefits: [
+          'Instant feedback generation upon submission',
+          'Contextual comments based on submission content',
+          'Focus on improvement areas and strengths',
+          'Editable suggestions for teacher refinement'
+        ],
+        link: '/features/ai-feedback'
+      },
+      {
+        icon: <LineChart className="h-8 w-8" />,
+        title: 'Student Performance Reports',
+        description: 'Track academic progress over time with comprehensive analytics that highlight strengths and weaknesses.',
+        benefits: [
+          'Longitudinal performance tracking',
+          'Skill gap analysis and recommendations',
+          'Comparative metrics against learning objectives',
+          'Shareable reports for parent-teacher meetings'
+        ],
+        link: '/features/performance-reports'
+      },
+      {
+        icon: <Binary className="h-8 w-8" />,
+        title: 'Web3 Grade Storage',
+        description: 'Enterprise plan users benefit from blockchain-based record keeping for the ultimate in security and verification.',
+        benefits: [
+          'Immutable grade records on secure blockchain',
+          'Credential verification for third parties',
+          'Digital academic certificates',
+          'Enhanced security against record tampering'
+        ],
+        link: '/features/web3-storage'
+      },
+      {
+        icon: <Languages className="h-8 w-8" />,
+        title: 'Multi-Language Support',
+        description: 'Our platform supports diverse user groups across India with interfaces and tools available in multiple regional languages.',
+        benefits: [
+          'Support for major Indian languages',
+          'Language detection in uploaded documents',
+          'Translation tools for feedback',
+          'Localized user interfaces'
+        ],
+        link: '/features/language-support'
+      },
+      {
+        icon: <CreditCard className="h-8 w-8" />,
+        title: 'Flexible Subscription Plans',
+        description: 'Choose the right package for your institutional needs with our tiered subscription model, starting with a free trial.',
+        benefits: [
+          'Three-month free trial for all new users',
+          'Scalable plans from individual to institution-wide',
+          'Pay only for features you need',
+          'Special pricing for educational institutions'
+        ],
+        link: '/features/subscription-plans'
+      },
+    ];
+    
+  }
+  else if(loggedindetails.role === 'student'){
+    featuresData = [
+      {
+        icon: <FileCheck className="h-8 w-8" />,
+        title: 'Student Assignment Uploads',
+        description: 'Our flexible upload system supports a wide range of document formats, allowing students to submit their work easily.',
+        benefits: [
+          'Support for multiple file formats (PDF, DOCX, TXT, etc.)',
+          'Bulk upload capability for multiple assignments',
+          'Automatic file organization by class, subject, and deadline',
+          'Custom submission parameters set by educators'
+        ],
+        link: '/features/student-uploads'
+      },
+      {
+        icon: <MessageSquareText className="h-8 w-8" />,
+        title: 'AI-Generated Feedback',
+        description: 'Provide timely, constructive feedback to students with AI-powered comments that identify areas for improvement.',
+        benefits: [
+          'Instant feedback generation upon submission',
+          'Contextual comments based on submission content',
+          'Focus on improvement areas and strengths',
+          'Editable suggestions for teacher refinement'
+        ],
+        link: '/features/ai-feedback'
+      },
+      {
+        icon: <LineChart className="h-8 w-8" />,
+        title: 'Student Performance Reports',
+        description: 'Track academic progress over time with comprehensive analytics that highlight strengths and weaknesses.',
+        benefits: [
+          'Longitudinal performance tracking',
+          'Skill gap analysis and recommendations',
+          'Comparative metrics against learning objectives',
+          'Shareable reports for parent-teacher meetings'
+        ],
+        link: '/features/performance-reports'
+      },
+      
+    ];
+    
+  }
+}
+   
 
   return (
     <div className="min-h-screen bg-dark-100">
