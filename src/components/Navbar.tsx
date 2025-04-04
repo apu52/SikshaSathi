@@ -13,11 +13,11 @@ declare global {
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
     const [walletAddress, setWalletAddress] = useState<string>("");
-  
-      const toggleMenu = () => {
-        setIsOpen(!isOpen);
-      };
-
+  // document.getElementById("login").style.display = "block";
+  useEffect(() => {
+  document.getElementById("logout").style.visibility = "hidden";
+  document.getElementById("logout1").style.visibility = "hidden";
+    
 
       if (window.ethereum) {
         window.ethereum.on("accountsChanged", (accounts: string[]) => {
@@ -25,24 +25,69 @@ const Navbar: React.FC = () => {
           alert("Wallet changed to: " + (accounts[0] || "Disconnected"));
         });
       }
+     
+      
 
-      const connectWallet = async () => {
-        if (window.ethereum) {
-          try {
-            const accounts: string[] = await window.ethereum.request({
-              method: "eth_requestAccounts"
-            });
+  }, []);
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
+  function getdetails(address: string) {
+    const loggedindetails = {
+      address: address,
+      name: "User Name", // Replace with actual user name if available
+      role:"student"
+      // Add any other details you want to store
+    };
+    return loggedindetails;
+  }
+
+
+  const connectWallet = async () => {
+    if (window.ethereum) {
+      try {
+        const accounts = await window.ethereum.request({
+          method: "eth_requestAccounts",
+        });
             const address = accounts[0];
-            setWalletAddress(address);
-            alert("Connected Wallet Address: " + address);
-          } catch (error) {
-            console.error("Connection error:", error);
-            alert("🛑 Connection failed or denied.");
-          }
-        } else {
-          alert("🦊 MetaMask not found. Please install MetaMask extension.");
-        }
-      };
+        setWalletAddress(address);
+        var loggedindetails=getdetails(address);
+        var logged=JSON.stringify(loggedindetails);
+
+        document.getElementById("login").style.visibility = "hidden";
+        document.getElementById("logout").style.visibility = " visible";
+        document.getElementById("login1").style.visibility = "hidden";
+        document.getElementById("logout1").style.visibility = " visible";
+        alert("Connected Wallet");
+        localStorage.setItem("loggedin",logged);
+      } catch (error) {
+        console.error("Connection error:", error);
+        alert("🛑 Connection failed or denied.");
+      }
+    } else {
+      alert("🦊 MetaMask not found. Please install MetaMask extension.");
+    }
+  };
+  const disconnectWallet = async () => {
+    if (window.ethereum) {
+      try {
+        setWalletAddress("");
+        localStorage.removeItem("loggedin");
+        document.getElementById("login").style.visibility = " visible";
+        document.getElementById("logout").style.visibility = "hidden";
+        document.getElementById("login1").style.display = "none";
+        document.getElementById("logout1").style.display = " inline-block";
+        alert("Disconnected Wallet");
+      } catch (error) {
+        console.error("Disconnection error:", error);
+        alert("🛑 Disconnection failed.");
+      }
+    } else {
+      alert("🦊 MetaMask not found. Please install MetaMask extension.");
+    }
+  }
+
   
     
   return (
@@ -75,10 +120,16 @@ const Navbar: React.FC = () => {
               Login Through Metamask
             </Link>
           </Button> */}
-          <Button onClick={connectWallet} variant="outline" size="sm" className="border-yellow-500/50 text-yellow-400 hover:bg-yellow-500 w-full">
+          <Button onClick={connectWallet} id="login" variant="outline" size="sm" className="border-yellow-500/50 text-yellow-400 hover:bg-yellow-500 w-full">
           <LogIn className="mr-2 h-4 w-4" />
           
           Login Through Metamask
+          
+          </Button>
+          <Button onClick={disconnectWallet} id="logout" variant="outline" size="sm" className="display-none border-yellow-500/50 text-red-400 hover:bg-yellow-500 w-full">
+          <LogIn className="mr-2 h-4 w-4" />
+          
+          Logout
           
           </Button>
           {/* <Button variant="default" size="sm" className="bg-yellow-500 hover:bg-yellow-600 text-dark-100" asChild>
@@ -117,7 +168,7 @@ const Navbar: React.FC = () => {
           <MobileNavLink to="/contact" onClick={toggleMenu}>Contact</MobileNavLink>
         </div>
         <div className="flex flex-col gap-2 px-4 py-3 border-t border-gray-800">
-        <Button onClick={connectWallet} variant="outline" size="sm" className="border-yellow-500/50 text-yellow-400 hover:bg-yellow-500 w-full">
+        <Button onClick={connectWallet} id="login1" variant="outline" size="sm" className="border-yellow-500/50 text-yellow-400 hover:bg-yellow-500 w-full">
           <LogIn className="mr-2 h-4 w-4" />
           
           Login Through Metamask
@@ -129,11 +180,19 @@ const Navbar: React.FC = () => {
               Register
             </Link>
           </Button> */}
+             <Button onClick={disconnectWallet} id="logout1" variant="outline" size="sm" className="display-none border-yellow-500/50 text-red-400 hover:bg-yellow-500 w-full">
+          <LogIn className="mr-2 h-4 w-4" />
+          
+          Logout
+          
+          </Button>
+       
         </div>
       </div>
     </nav>
   );
 };
+
 
 interface NavLinkProps {
   to: string;
