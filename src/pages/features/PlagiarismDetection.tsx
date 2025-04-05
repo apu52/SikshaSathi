@@ -15,6 +15,7 @@ const PlagiarismDetection = () => {
   const [allResults, setAllResults] = useState({});
   const fileContentsRef = useRef({});
   const [error, setError] = useState(null);
+  let studentbatch = [];
   
   // More efficient file content reader - reads in chunks for large files
   const readFileContent = (file) => {
@@ -58,7 +59,12 @@ const PlagiarismDetection = () => {
         file.name.endsWith('.doc') ||
         file.name.endsWith('.docx')
       );
-      
+      let totalstudenttext="";
+      for(const file of newFiles){
+        totalstudenttext=totalstudenttext+extractTextFromImageWithGemini(file);
+
+      }
+      console.log(totalstudenttext);
       // Read all file contents - for non-text files, we'll just use dummy content
       for (const file of newFiles) {
         if (file.type === 'text/plain' || file.name.endsWith('.txt')) {
@@ -84,57 +90,158 @@ const PlagiarismDetection = () => {
     }
   };
   
+  type Student = {
+    name: string;
+    answer: string;
+  };
+  
+  function checkPlagiarism(students: Student[]) {
+    // alert("Checking for plagiarism...");
+    const threshold = 0.8; // 80% match threshold
+  
+    // Simple similarity function using Dice's Coefficient
+    function similarity(str1: string, str2: string): number {
+      const bigrams = (s: string): Set<string> => {
+        const pairs = new Set<string>();
+        for (let i = 0; i < s.length - 1; i++) {
+          pairs.add(s.substring(i, i + 2));
+        }
+        return pairs;
+      };
+  
+      const s1 = bigrams(str1.toLowerCase().replace(/\s+/g, ''));
+      const s2 = bigrams(str2.toLowerCase().replace(/\s+/g, ''));
+  
+      const intersection = new Set([...s1].filter(x => s2.has(x)));
+      return (2 * intersection.size) / (s1.size + s2.size);
+    }
+  
+    for (let i = 0; i < students.length; i++) {
+      for (let j = i + 1; j < students.length; j++) {
+        const sim = similarity(students[i].answer, students[j].answer);
+        if (sim >= threshold) {
+          console.log(`⚠️ Plagiarism Detected (${Math.round(sim * 100)}%)`);
+          console.log(`${students[i].name} and ${students[j].name}`);
+          console.log("-----------------------------");
+        }
+        else{
+          console.log(`No Plagiarism Detected (${Math.round(sim * 100)}%)`);
+
+        }
+      }
+    }
+  }
+  
+
+  async function extractTextFromImageWithGemini(file) {
+    const GEMINI_API_KEY = "AIzaSyDD8QW1BggDVVMLteDygHCHrD6Ff9Dy0e8"; // 🔐 Replace with your real key
+
+    if (!file) {
+      alert("Please select a file.");
+      return;
+    }
+
+    try {
+      const base64 = await convertToBase64(file);
+      const mimeType = file.type;
+
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-pro:generateContent?key=${GEMINI_API_KEY}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            contents: [
+              {
+                role: "user",
+                parts: [
+                  { text: "Extract all readable text from this image." },
+                  {
+                    inline_data: {
+                      mime_type: mimeType,
+                      data: base64,
+                    },
+                  },
+                ],
+              },
+            ],
+          }),
+        }
+      );
+
+      const data = await response.json();
+      const extractedText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+
+      if (extractedText) {
+        // alert("Extracted Text:\n\n" + extractedText);
+        console.log(extractedText);
+        return extractedText;
+      } else {
+        alert("No readable text found or something went wrong.");
+      }
+    } catch (error) {
+      console.error("Error extracting text:", error);
+      alert("Failed to extract text from the image.");
+    }
+  }
+
+  function convertToBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        const result = reader.result.split(",")[1]; // remove data:image/...;base64,
+        resolve(result);
+      };
+      reader.onerror = reject;
+    });
+  }
+
   // Handle bulk file upload with better error handling
   const handleBulkUpload = async (e) => {
     try {
       setError(null);
       const newFiles = Array.from(e.target.files);
-      
+  
       // Limit number of files to prevent browser hanging
       if (newFiles.length > 20) {
         setError("Please upload a maximum of 20 files at once to prevent performance issues.");
         return;
       }
-      
-      // Process files in batches to prevent UI freezing
-      const filteredFiles = newFiles.filter(file => 
-        file.type === 'text/plain' || 
-        file.name.endsWith('.txt') || 
-        file.type === 'application/pdf' || 
+  
+      // Filter valid file types
+      const filteredFiles = newFiles.filter(file =>
+        file.type === 'text/plain' ||
+        file.name.endsWith('.txt') ||
+        file.type === 'application/pdf' ||
         file.name.endsWith('.pdf') ||
         file.name.endsWith('.doc') ||
         file.name.endsWith('.docx') ||
         file.type === 'application/zip' ||
         file.name.endsWith('.zip')
       );
-      
-      // We'll read files in batches of 5
+  
       const batchSize = 5;
+  
       for (let i = 0; i < filteredFiles.length; i += batchSize) {
         const batch = filteredFiles.slice(i, i + batchSize);
-        
-        // Process batch
+  
+        // Process each file in the batch
         for (const file of batch) {
-          if (file.type === 'text/plain' || file.name.endsWith('.txt')) {
-            try {
-              const content = await readFileContent(file);
-              fileContentsRef.current[file.name] = content;
-            } catch (err) {
-              console.error("Error reading file:", err);
-              fileContentsRef.current[file.name] = `Sample content for ${file.name}. This is placeholder text used for demonstration purposes.`;
-            }
-          } else {
-            // For non-text files like PDF/DOC/ZIP, use placeholder text
-            fileContentsRef.current[file.name] = `Sample content for ${file.name}. This is placeholder text used for demonstration purposes.`;
-          }
+          const text = await extractTextFromImageWithGemini(file); // ✅ Await the result
+          studentbatch.push({ name: file.name, answer: text });
         }
-        
-        // Short timeout to let the UI breathe between batches
+        // localStorage.setItem("studentbatch", JSON.stringify(studentbatch));
+  
+        console.log("Student batch:", studentbatch);
+        checkPlagiarism(studentbatch);
+  
+        // Let UI breathe
         await new Promise(resolve => setTimeout(resolve, 10));
       }
-      
+  
       setFiles(prevFiles => [...prevFiles, ...filteredFiles]);
-      
+  
     } catch (err) {
       console.error("Error in bulk upload:", err);
       setError("Failed to process bulk upload. Please try again with smaller or fewer files.");
