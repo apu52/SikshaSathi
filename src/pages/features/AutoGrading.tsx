@@ -265,7 +265,7 @@ ${result.feedback}
               <TabsContent value="upload">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   {/* Master Copy Upload */}
-                  <div className="border border-dashed border-yellow-500/50 rounded-lg p-8 flex flex-col items-center">
+                  {/* <div className="border border-dashed border-yellow-500/50 rounded-lg p-8 flex flex-col items-center">
                     <div className="h-16 w-16 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-400 mb-4">
                       <FileText className="h-8 w-8" />
                     </div>
@@ -290,7 +290,28 @@ ${result.feedback}
                       </div>
                     )}
                   </div>
-                  
+                   */}
+                   {/* make 2 textareas */}
+                  <div className="border border-dashed border-yellow-500/50 rounded-lg p-8 flex flex-col items-center">
+                    <div className="h-16 w-16 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-400 mb-4">
+                      <FileText className="h-8 w-8" />
+                    </div>
+                    <h3 className="text-xl font-medium mb-2">Insert Master Copy</h3>
+                    <p className="text-gray-400 text-center mb-6"> Master Answer copy</p>
+                    
+                    <textarea 
+                      className="w-full h-32 p-4 border border-yellow-500/20 rounded-lg bg-transparent text-gray-300 placeholder:text-gray-500"
+                      placeholder="Paste your master copy content here..."
+                      onChange={(e) => setMasterFile(e.target.value)}
+                    ></textarea>
+                    <p className="text-gray-400 text-center mb-6">Your Custom Judging criteria</p>
+                    
+                    <textarea 
+                      className="w-full h-32 p-4 border border-yellow-500/20 rounded-lg bg-transparent text-gray-300 placeholder:text-gray-500"
+                      placeholder="Paste your master copy content here..."
+                      onChange={(e) => setMasterFile(e.target.value)}
+                    ></textarea>
+                    </div>
                   {/* Student Assignments Upload */}
                   <div className="border border-dashed border-yellow-500/50 rounded-lg p-8 flex flex-col items-center">
                     <div className="h-16 w-16 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-400 mb-4">
