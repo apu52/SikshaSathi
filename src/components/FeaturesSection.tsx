@@ -44,7 +44,62 @@ const FeaturesSection: React.FC = () => {
   // alert('This is a demo version. Some features may not be available.');
   var loggedindetails=JSON.parse(localStorage.getItem('loggedin') || '{}');
   console.log(loggedindetails);
-  var features=[];
+  var   features = [
+    {
+      icon: <FileCheck className="h-6 w-6" />,
+      title: 'Student Assignment Uploads',
+      description: 'Students can upload assignments in various formats (PDF, DOCX, etc.) with multiple submissions in one go.',
+      link: '/features/student-uploads'
+    },
+    {
+      icon: <AlertTriangle className="h-6 w-6" />,
+      title: 'AI-Powered Plagiarism Detection',
+      description: 'Advanced algorithms compare submissions with both internal database and external sources for comprehensive plagiarism checking.',
+      link: '/features/plagiarism-detection'
+    },
+    {
+      icon: <BarChart4 className="h-6 w-6" />,
+      title: 'Automatic Grading & Ranking',
+      description: 'Smart evaluation system assigns scores based on predefined guidelines and generates detailed ranking reports.',
+      link: '/features/auto-grading'
+    },
+    {
+      icon: <Sliders className="h-6 w-6" />,
+      title: 'Teacher Customization',
+      description: 'Teachers can adjust scores and train the AI model over time for continuously improving accuracy.',
+      link: '/features/teacher-customization'
+    },
+    {
+      icon: <MessageSquareText className="h-6 w-6" />,
+      title: 'AI-Generated Feedback',
+      description: 'Provides constructive feedback using NLP models to help students understand their mistakes and improve.',
+      link: '/features/ai-feedback'
+    },
+    {
+      icon: <LineChart className="h-6 w-6" />,
+      title: 'Student Performance Reports',
+      description: 'Track progress over time with detailed reports highlighting strengths, weaknesses and improvement areas.',
+      link: '/features/performance-reports'
+    },
+    {
+      icon: <Binary className="h-6 w-6" />,
+      title: 'Web3 Grade Storage',
+      description: 'Enterprise plan includes blockchain-based tamper-proof grade records for maximum security and reliability.',
+      link: '/features/web3-storage'
+    },
+    {
+      icon: <Languages className="h-6 w-6" />,
+      title: 'Multi-Language Support',
+      description: 'Platform supports Indian regional languages to make it accessible for diverse user groups across the country.',
+      link: '/features/language-support'
+    },
+    {
+      icon: <CreditCard className="h-6 w-6" />,
+      title: 'Flexible Subscription Plans',
+      description: 'Choose from Starter, Professional or Enterprise plans based on institutional needs with a 3-month free trial.',
+      link: '/features/subscription-plans'
+    },
+  ];
   if(loggedindetails==null || loggedindetails==undefined || loggedindetails==""){
 
   }

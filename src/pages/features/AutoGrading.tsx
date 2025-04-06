@@ -25,14 +25,83 @@ const AutoGrading = () => {
       setMasterFile(e.target.files[0]);
     }
   };
-
-  // Handle student files upload
+var student_copy="";
   const handleStudentFilesUpload = (e) => {
     if (e.target.files) {
       const files = Array.from(e.target.files);
-      setStudentFiles(files);
+      extractTextFromImageWithGemini(files[0]).then((text) => {
+        console.log(text);
+        student_copy=text;
+        alert("image uploaded")
+      });
     }
   };
+  
+  
+  async function extractTextFromImageWithGemini(file) {
+    const GEMINI_API_KEY = "AIzaSyDD8QW1BggDVVMLteDygHCHrD6Ff9Dy0e8"; // 🔐 Replace with your real key
+
+    if (!file) {
+      alert("Please select a file.");
+      return;
+    }
+
+    try {
+      const base64 = await convertToBase64(file);
+      const mimeType = file.type;
+
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-pro:generateContent?key=${GEMINI_API_KEY}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            contents: [
+              {
+                role: "user",
+                parts: [
+                  { text: "Extract all readable text from this image." },
+                  {
+                    inline_data: {
+                      mime_type: mimeType,
+                      data: base64,
+                    },
+                  },
+                ],
+              },
+            ],
+          }),
+        }
+      );
+
+      const data = await response.json();
+      const extractedText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+
+      if (extractedText) {
+        // alert("Extracted Text:\n\n" + extractedText);
+        console.log(extractedText);
+        return extractedText;
+      } else {
+        alert("No readable text found or something went wrong.");
+      }
+    } catch (error) {
+      console.error("Error extracting text:", error);
+      alert("Failed to extract text from the image.");
+    }
+  }
+
+  function convertToBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        const result = reader.result.split(",")[1]; // remove data:image/...;base64,
+        resolve(result);
+      };
+      reader.onerror = reject;
+    });
+  }
+
 
   // Process assignments and generate scores
   const processAssignments = () => {
@@ -302,6 +371,7 @@ ${result.feedback}
                     <textarea 
                       className="w-full h-32 p-4 border border-yellow-500/20 rounded-lg bg-transparent text-gray-300 placeholder:text-gray-500"
                       placeholder="Paste your master copy content here..."
+                      id="master_copy_txt"
                       onChange={(e) => setMasterFile(e.target.value)}
                     ></textarea>
                     <p className="text-gray-400 text-center mb-6">Your Custom Judging criteria</p>
@@ -309,6 +379,8 @@ ${result.feedback}
                     <textarea 
                       className="w-full h-32 p-4 border border-yellow-500/20 rounded-lg bg-transparent text-gray-300 placeholder:text-gray-500"
                       placeholder="Paste your master copy content here..."
+                      id="judgement_txt"
+
                       onChange={(e) => setMasterFile(e.target.value)}
                     ></textarea>
                     </div>
@@ -344,6 +416,7 @@ ${result.feedback}
                       </div>
                     )}
                   </div>
+                  <button onClick={processresult}>submit</button>
                 </div>
               </TabsContent>
               
