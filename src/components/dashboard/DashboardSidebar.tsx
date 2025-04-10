@@ -14,6 +14,9 @@ import {
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
+
+
+
 interface SidebarLinkProps {
   icon: React.ReactNode;
   label: string;
@@ -86,15 +89,19 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ isOpen, toggleSideb
               label="Assignment Upload" 
               to="/dashboard/upload" 
             />
+            
             <SidebarLink 
-              icon={<FileCheck className="h-5 w-5" />} 
-              label="Plagiarism Check" 
-              to="/dashboard/plagiarism" 
-            />
+  icon={<FileCheck className="h-5 w-5" />} 
+  label="Plagiarism Check" 
+  to="/features/plagiarism-detection" 
+/>
+
+
+
             <SidebarLink 
               icon={<BarChart2 className="h-5 w-5" />} 
               label="Student Grades" 
-              to="/dashboard/grades" 
+              to="/features/auto-grading" 
             />
             <SidebarLink 
               icon={<Users className="h-5 w-5" />} 

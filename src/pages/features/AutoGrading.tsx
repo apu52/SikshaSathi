@@ -25,6 +25,7 @@ const AutoGrading = () => {
       setMasterFile(e.target.files[0]);
     }
   };
+<<<<<<< Updated upstream
 var student_copy="";
   const handleStudentFilesUpload = (e) => {
     if (e.target.files) {
@@ -102,6 +103,16 @@ var student_copy="";
     });
   }
 
+=======
+
+  // Handle student files upload
+  const handleStudentFilesUpload = (e) => {
+    if (e.target.files) {
+      const files = Array.from(e.target.files);
+      setStudentFiles(files);
+    }
+  };
+>>>>>>> Stashed changes
 
   // Process assignments and generate scores
   const processAssignments = () => {
@@ -334,7 +345,11 @@ ${result.feedback}
               <TabsContent value="upload">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   {/* Master Copy Upload */}
+<<<<<<< Updated upstream
                   {/* <div className="border border-dashed border-yellow-500/50 rounded-lg p-8 flex flex-col items-center">
+=======
+                  <div className="border border-dashed border-yellow-500/50 rounded-lg p-8 flex flex-col items-center">
+>>>>>>> Stashed changes
                     <div className="h-16 w-16 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-400 mb-4">
                       <FileText className="h-8 w-8" />
                     </div>
@@ -359,6 +374,7 @@ ${result.feedback}
                       </div>
                     )}
                   </div>
+<<<<<<< Updated upstream
                    */}
                    {/* make 2 textareas */}
                   <div className="border border-dashed border-yellow-500/50 rounded-lg p-8 flex flex-col items-center">
@@ -384,6 +400,9 @@ ${result.feedback}
                       onChange={(e) => setMasterFile(e.target.value)}
                     ></textarea>
                     </div>
+=======
+                  
+>>>>>>> Stashed changes
                   {/* Student Assignments Upload */}
                   <div className="border border-dashed border-yellow-500/50 rounded-lg p-8 flex flex-col items-center">
                     <div className="h-16 w-16 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-400 mb-4">
@@ -416,7 +435,10 @@ ${result.feedback}
                       </div>
                     )}
                   </div>
+<<<<<<< Updated upstream
                   <button onClick={processresult}>submit</button>
+=======
+>>>>>>> Stashed changes
                 </div>
               </TabsContent>
               

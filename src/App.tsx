@@ -14,7 +14,7 @@ import Features from "./pages/Features";
 import NotFound from "./pages/NotFound";
 // Import feature pages
 import StudentUploads from "./pages/features/StudentUploads";
-import PlagiarismDetection from "./pages/features/PlagiarismDetection";
+
 import AutoGrading from "./pages/features/AutoGrading";
 import TeacherCustomization from "./pages/features/TeacherCustomization";
 import AIFeedback from "./pages/features/AIFeedback";
@@ -22,6 +22,10 @@ import PerformanceReports from "./pages/features/PerformanceReports";
 import Web3Storage from "./pages/features/Web3Storage";
 import LanguageSupport from "./pages/features/LanguageSupport";
 import SubscriptionPlans from "./pages/features/SubscriptionPlans";
+import PlagiarismDetection from './pages/features/PlagiarismDetection';
+
+<Route path="/plagiarism-check" element={<PlagiarismDetection />} />
+
 
 // Create a client
 const queryClient = new QueryClient();
@@ -44,6 +48,7 @@ const App: React.FC = () => {
               {/* Feature detail pages */}
               <Route path="/features/student-uploads" element={<StudentUploads />} />
               <Route path="/features/plagiarism-detection" element={<PlagiarismDetection />} />
+              
               <Route path="/features/auto-grading" element={<AutoGrading />} />
               <Route path="/features/teacher-customization" element={<TeacherCustomization />} />
               <Route path="/features/ai-feedback" element={<AIFeedback />} />
