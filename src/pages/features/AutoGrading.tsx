@@ -25,16 +25,17 @@ const AutoGrading = () => {
       setMasterFile(e.target.files[0]);
     }
   };
-<<<<<<< Updated upstream
-var student_copy="";
+
+  var student_copy = "";
   const handleStudentFilesUpload = (e) => {
     if (e.target.files) {
       const files = Array.from(e.target.files);
       extractTextFromImageWithGemini(files[0]).then((text) => {
         console.log(text);
-        student_copy=text;
-        alert("image uploaded")
+        student_copy = text;
+        alert("image uploaded");
       });
+      setStudentFiles(files);
     }
   };
   
@@ -103,17 +104,6 @@ var student_copy="";
     });
   }
 
-=======
-
-  // Handle student files upload
-  const handleStudentFilesUpload = (e) => {
-    if (e.target.files) {
-      const files = Array.from(e.target.files);
-      setStudentFiles(files);
-    }
-  };
->>>>>>> Stashed changes
-
   // Process assignments and generate scores
   const processAssignments = () => {
     if (!masterFile || studentFiles.length === 0) {
@@ -162,6 +152,12 @@ var student_copy="";
         setShowResults(true);
       }
     }, 500);
+  };
+
+  // Function to process results (to be implemented)
+  const processresult = () => {
+    // Implementation to be added
+    console.log("Processing results");
   };
 
   // Generate feedback based on score
@@ -345,38 +341,7 @@ ${result.feedback}
               <TabsContent value="upload">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   {/* Master Copy Upload */}
-<<<<<<< Updated upstream
-                  {/* <div className="border border-dashed border-yellow-500/50 rounded-lg p-8 flex flex-col items-center">
-=======
-                  <div className="border border-dashed border-yellow-500/50 rounded-lg p-8 flex flex-col items-center">
->>>>>>> Stashed changes
-                    <div className="h-16 w-16 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-400 mb-4">
-                      <FileText className="h-8 w-8" />
-                    </div>
-                    <h3 className="text-xl font-medium mb-2">Upload Master Copy</h3>
-                    <p className="text-gray-400 text-center mb-6">Upload the master answer key or rubric for comparison</p>
-                    
-                    <label className="cursor-pointer">
-                      <div className="bg-yellow-500/20 hover:bg-yellow-500/30 text-yellow-400 py-3 px-6 rounded-lg flex items-center transition">
-                        <Upload className="h-5 w-5 mr-2" />
-                        Select Master File
-                      </div>
-                      <input 
-                        type="file" 
-                        className="hidden" 
-                        onChange={handleMasterFileUpload}
-                      />
-                    </label>
-                    
-                    {masterFile && (
-                      <div className="mt-4 bg-yellow-500/10 p-3 rounded-md w-full">
-                        <p className="text-sm text-yellow-300 truncate">{masterFile.name}</p>
-                      </div>
-                    )}
-                  </div>
-<<<<<<< Updated upstream
-                   */}
-                   {/* make 2 textareas */}
+                  {/* make 2 textareas */}
                   <div className="border border-dashed border-yellow-500/50 rounded-lg p-8 flex flex-col items-center">
                     <div className="h-16 w-16 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-400 mb-4">
                       <FileText className="h-8 w-8" />
@@ -400,9 +365,7 @@ ${result.feedback}
                       onChange={(e) => setMasterFile(e.target.value)}
                     ></textarea>
                     </div>
-=======
                   
->>>>>>> Stashed changes
                   {/* Student Assignments Upload */}
                   <div className="border border-dashed border-yellow-500/50 rounded-lg p-8 flex flex-col items-center">
                     <div className="h-16 w-16 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-400 mb-4">
@@ -435,10 +398,7 @@ ${result.feedback}
                       </div>
                     )}
                   </div>
-<<<<<<< Updated upstream
                   <button onClick={processresult}>submit</button>
-=======
->>>>>>> Stashed changes
                 </div>
               </TabsContent>
               
