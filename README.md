@@ -17,9 +17,7 @@ https://youtu.be/NHBso4jtv08?feature=shared
 https://github.com/Srinjoy2004/SikshaSathi_Backend
 
 
-Sure! I checked the repository: [apu52/SikshaSathi](https://github.com/apu52/SikshaSathi). It's a web-based platform aimed at simplifying school-related tasks like student registration, fee payments, attendance, and more.
 
-Here’s a professional, clean, and more informative version of the README for the project:
 
 ---
 
