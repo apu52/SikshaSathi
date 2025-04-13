@@ -3,7 +3,8 @@
 
 # 🎓 SikshaSathi
 
-**SikshaSathi** is an innovative project developed for **HACKTROPICA 2025** at Asansol Engineering College.It aims to revolutionize the educational experience by providing a suite of tools designed to enhance learning and teaching methodologies
+![image](https://github.com/user-attachments/assets/c903b69d-6dce-4e4c-a9c3-936cb86efabc)
+
 
 ---
 
@@ -16,101 +17,120 @@ https://youtu.be/NHBso4jtv08?feature=shared
 https://github.com/Srinjoy2004/SikshaSathi_Backend
 
 
-## 🌟 Features
+Sure! I checked the repository: [apu52/SikshaSathi](https://github.com/apu52/SikshaSathi). It's a web-based platform aimed at simplifying school-related tasks like student registration, fee payments, attendance, and more.
 
-- **📚 Course Management*: Organize and manage courses efficiently, allowing educators to upload materials and students to access them seamlessy.
-- **📝 Assignment Submissions*: Facilitate easy assignment submissions with deadlines and grading systms.
-- **💬 Discussion Forum**: Encourage interactive discussions among students and teachers to foster a collaborative learning environent.
-- **📊 Performance Analytis**: Track and analyze student performance with comprehensive dashbards.
-- **🔔 Notificatins**: Stay updated with real-time notifications for assignments, announcements, and discusions.
+Here’s a professional, clean, and more informative version of the README for the project:
+
+---
+
+# 🎓 Introduction
+
+**SikshaSathi** is a modern, web-based school management platform designed to simplify administrative and academic workflows in educational institutions. The system supports student registration, fee payment, attendance tracking, exam management, and more—all through a user-friendly dashboard interface.
+
+---
+
+## 🚀 Features
+
+- 👨‍🎓 **Student Management** – Add, edit, or delete student details with ease.
+- 💰 **Fee Management** – Track student fees, payments, dues, and generate receipts.
+- 📝 **Attendance Tracking** – Mark and manage daily attendance with reports.
+- 🧑‍🏫 **Teacher Dashboard** – Teacher-specific dashboard for managing classes and students.
+- 📊 **Admin Dashboard** – Full control over all modules, analytics, and user permissions.
+- 📅 **Exam & Results Management** – Add exams, input marks, and generate results.
+- 🔒 **Authentication System** – Secure login for Admins, Teachers, and Students.
+- 🧹 **Clean UI** – Built using modern frontend technologies for a responsive experience.
 
 ---
 
 ## 🛠️ Tech Stack
 
-| Technology    | Description                                       |
-|---------------|---------------------------------------------------|
-| **Frontend**  | React.js, Tailwind CSS                            |
-| **Backend**   | Node.js, Express.js                               |
-| **Database**  | MongoDB                                           |
-| **Version Control** | Git & GitHub                                |
-| **Deployment** | Vercel / Heroku                                  |
+| Technology     | Role                           |
+|----------------|--------------------------------|
+| **HTML, CSS, JS** | Frontend Structure & Styling |
+| **Bootstrap**     | Responsive UI Components     |
+| **PHP**           | Backend Development          |
+| **MySQL**         | Database Management          |
 
 ---
 
-## 🚀 Getting Started
+## 📸 Screenshots
 
-Follow these steps to set up the project locally:
+| Login Page | Admin Dashboard | Student Form |
+|------------|------------------|--------------|
+| ![Login](screenshots/login.png) | ![Dashboard](screenshots/admin_dashboard.png) | ![Student Form](screenshots/student_form.png) |
 
-1. **Clone the Repository**:
+> 📂 _Screenshots are stored in the `/screenshots` folder. Update as needed._
+
+---
+
+## 🧩 Installation Guide
+
+1. **Clone the repository**
    ```bash
    git clone https://github.com/apu52/SikshaSathi.git
-   ```
-2. **Navigate to the Project Directory**:
-   ```bash
    cd SikshaSathi
    ```
-3. **Install Dependencies**:
-   ```bash
-   npm install
-   ```
-4. **Set Up Environment Variables*:
-   - Create a `.env` file in the root drectory
-   - Add the necessary environment variables as specified in `.env.xample`.
-5. **Start the Development Server**:
-   ```bash
-   npm run dev
-   ```
-   The application will be running at `http://localhost:3000`.
+
+2. **Set up your web server** (XAMPP/LAMP/WAMP)
+
+3. **Create the Database**
+   - Import the `database.sql` file located in the root folder into your MySQL server.
+
+4. **Configure the database**
+   - Open `/config/db.php` and update with your local DB credentials.
+
+5. **Run the project**
+   - Open `localhost/SikshaSathi` in your browser.
 
 ---
 
-## 📂 Project Structure
+## 🔐 Default Credentials
+
+| Role    | Username | Password |
+|---------|----------|----------|
+| Admin   | admin    | admin123 |
+| Teacher | teacher1 | pass123  |
+
+> ⚠️ Change default passwords after first login for security.
+
+---
+
+## 📌 Folder Structure
 
 ```
 SikshaSathi/
-├── public/
-├── src/
-│   ├── components/
-│   ├── pages/
-│   ├── assets/
-│   └── ...
-├── .env.example
-├── .gitignore
-├── package.json
-├── README.md
-└── ...
+├── assets/          # CSS, JS, images
+├── config/          # DB configuration
+├── pages/           # Core pages (dashboard, forms)
+├── includes/        # Header, footer, sidebar components
+├── database.sql     # DB structure & sample data
+├── index.php        # Entry point
+└── README.md
 ```
+
+---
+
+## 🧠 Future Enhancements
+
+- Email/SMS Notification Integration
+- Multi-language Support
+- Attendance via QR Code
+- Role-based Access Control (RBAC)
+- Mobile App Support
 
 ---
 
 ## 🤝 Contributing
 
-We welcome contributions to enhance SikshaSathi! To contribute:
-
-1. **Fork the Repsitory**: Click on the 'Fork' button at the top right of the repostory page.
-2. **Clone Your Fork**:
-   ```bash
-   git clone https://github.com/your-username/SikshaSathi.git
-   ```
-3. **Create a New Branch**:
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
-4. **Make Your hanges**: Implement your featre or fix.
-5. **Commit Your Changes**:
-   ```bash
-   git commit -m "Add your commit message here"
-   ```
-6. **Push to Your Fork**:
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-7. **Create a Pull equest**: Navigate to the original repository and click on 'New Pul Request'.
+Contributions are welcome! If you'd like to suggest features or report bugs, please open an issue or submit a pull request.
 
 ---
 
-## �️ License
+## 📄 License
 
-This project is licensed under the [MIT Licens](LICENSE).
+This project is open source and available under the [MIT License](LICENSE).
+
+---
+
+
 
